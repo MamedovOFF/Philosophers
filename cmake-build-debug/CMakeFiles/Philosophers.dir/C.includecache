@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/spurple/School_21/Philosophers/main.c
+philo.h
+/Users/spurple/School_21/Philosophers/philo.h
+
+/Users/spurple/School_21/Philosophers/philo.h
+stdio.h
+-
+pthread.h
+-
+
