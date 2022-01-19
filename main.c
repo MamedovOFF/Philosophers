@@ -19,18 +19,21 @@ void	philo_init(t_table *table, char **argv, int flag)
 	}
 }
 
-void	*check(void *i)
+void	*check(void *arg)
 {
-	printf("tread %d\n", i);
+	t_philo	philo;
+
+	philo = *(t_philo *)arg;
+	printf("tread %d\n", philo.time_die);
 	return NULL;
 }
 
 void	pthread_run(t_philo *philo)
 {
-	pthread_t	t1;
+	pthread_t	tid;
 
-	pthread_create(&t1, NULL, check, philo->philo_num);
-	pthread_join(t1, NULL);
+	pthread_create(&tid, NULL, check, &philo);
+	pthread_join(tid, NULL);
 }
 
 int	main(int argc, char **argv)
