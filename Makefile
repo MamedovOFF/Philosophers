@@ -24,10 +24,10 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ) $(HEADER)
 				@$(MAKE) -C ./libft
-				$(CC) $(FLAGS) $(OBJ) -I${HEADER} ${LIBFT} -o $(NAME)
+				$(CC) $(FLAGS) $(OBJ) ${LIBFT} -pthread -o $(NAME)
 
 %.o:			%.c $(HEADER)
-				$(CC) -I${HEADER} -c $< -o $@
+				$(CC) -c $< -o $@
 
 bonus:
 				make OBJ="$(OBJ_B)" all

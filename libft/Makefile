@@ -24,7 +24,7 @@ CC				= gcc
 
 RM				= @rm -f
 
-FLAGS			= -Wall -Wextra -Werror -I $(HEADER)
+FLAGS			= -Wall -Wextra -Werror
 
 .PHONY:			all clean fclean re bonus
 

@@ -2,19 +2,23 @@
 # define PHILO_H
 #include <stdio.h>
 #include <pthread.h>
+#include <sys/time.h>
 #include "libft/libft.h"
 
 typedef struct s_philo
 {
 	int		philo_num;
+	long		start;
+	int		flag;
 	int		time_die;
 	int		time_sleep;
 	int		time_eat;
 	int		time_fork;
-	unsigned int	left;
-	unsigned int	right;
+	pthread_t	tid;
+	pthread_mutex_t	forks;
 	int		nte;
 }	t_philo;
+
 typedef struct s_table
 {
 	int			all_philo;
