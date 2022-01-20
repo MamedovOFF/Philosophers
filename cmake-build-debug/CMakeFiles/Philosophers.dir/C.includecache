@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/Users/spurple/School_21/Philosophers/libft/libft.h
+stdlib.h
+-
+unistd.h
+-
+stddef.h
+-
+
 /Users/spurple/School_21/Philosophers/main.c
 philo.h
 /Users/spurple/School_21/Philosophers/philo.h
@@ -15,4 +23,8 @@ stdio.h
 -
 pthread.h
 -
+sys/time.h
+-
+libft/libft.h
+/Users/spurple/School_21/Philosophers/libft/libft.h
 
