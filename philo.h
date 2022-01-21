@@ -8,21 +8,24 @@
 typedef struct s_philo
 {
 	int				philo_num;
-	long			start;
 	int				flag;
-	int				time_die;
-	int				time_sleep;
-	int				time_eat;
-	int				time_fork;
+	int				time_to_die;
+	long			start;
 	pthread_mutex_t	fork;
 	pthread_t		tid;
-	int				nte;
 }	t_philo;
 
 typedef struct s_table
 {
 	int				all_philo;
-	pthread_mutex_t	*forks;
+	int				idx;
+	int				time_sleep;
+	int				time_eat;
+	int				time_fork;
+	long			start;
+	int				nte;
+	int				time_die;
+	pthread_mutex_t print;
 	t_philo			**philo;
 }	t_table;
 #endif

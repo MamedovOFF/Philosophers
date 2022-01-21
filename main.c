@@ -1,5 +1,6 @@
 #include "philo.h"
 
+
 long	get_time(long i)
 {
 	long			time;
@@ -11,58 +12,92 @@ long	get_time(long i)
 	return (time + i);
 }
 
+void	smart_sleep(int time)
+{
+	long	t;
+
+	t = get_time(0);
+	while (get_time(0) - t < time)
+	{
+		usleep(1);
+	}
+}
+
 void	philo_init(t_table *table, char **argv, int flag)
 {
 	int	i;
 
 	i = 0;
 	table->philo = malloc(sizeof(t_philo) * table->all_philo);
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->all_philo);
+	table->time_eat = ft_atoi(argv[3]);
+	table->time_die = ft_atoi(argv[2]);
+	table->time_sleep = ft_atoi(argv[4]);
+	pthread_mutex_init(&table->print, NULL);
+	if (flag == 6)
+		table->nte = ft_atoi(argv[5]);
 	while (i < table->all_philo)
 	{
 		table->philo[i] = malloc(sizeof(t_philo));
-		pthread_mutex_init(&table->forks[i], NULL);
-		table->philo[i]->fork = table->forks[i];
 		table->philo[i]->philo_num = i + 1;
+		pthread_mutex_init(&table->philo[i]->fork, NULL);
 		table->philo[i]->flag = 0;
-		table->philo[i]->time_die = ft_atoi(argv[2]);
-		table->philo[i]->time_eat = ft_atoi(argv[3]);
-		table->philo[i]->time_sleep = ft_atoi(argv[4]);
-		if (flag == 6)
-			table->philo[i]->nte = ft_atoi(argv[5]);
 		i++;
 	}
 }
 
+void print_mutex(t_table *table, int i, char *str)
+{
+		pthread_mutex_lock(&table->print);	
+		printf("%ld %d %s\n", get_time(0) - table->start,table->philo[i]->philo_num, str);
+		pthread_mutex_unlock(&table->print);
+}
+
 void	*philo_life(void* arg)
 {
-	t_philo	*philo;
-	long	die;
+	t_table	*table;
+	int		left;
+	int		i;
 
-	philo = (t_philo *)arg;
-	philo->start = get_time(0);
-	die = get_time(philo->time_die);
+	table = (t_table *)arg;
+	i = table->idx;
 	while (1)
 	{
-		printf("%ld %d is has taken a fork\n", get_time(0) - philo->start,philo->philo_num);
-		printf("%ld %d is eating\n", get_time(0) - philo->start, philo->philo_num);
-		pthread_mutex_lock(&philo->fork);
-		usleep(philo->time_eat * 1000);
-		pthread_mutex_unlock(&philo->fork);
-		printf("%ld %d is sleeping\n", get_time(0) - philo->start, philo->philo_num);
-		usleep(philo->time_sleep * 1000);
-		printf("%ld %d is thinking\n", get_time(0) - philo->start, philo->philo_num);
-		if (get_time(0) > die )
-			philo->flag = 1;
-		usleep(100);
+		if (i == 0)
+			left = table->all_philo - 1;
+		else				
+			left = i - 1;
+		pthread_mutex_lock(&table->philo[i]->fork);
+		pthread_mutex_lock(&table->philo[left]->fork);
+		print_mutex(table, i, "is has taken a fork");
+		print_mutex(table, i, "is has taken a fork");
+		printf("%ld %d is eating\n", get_time(0) - table->start, table->philo[i]->philo_num);
+		smart_sleep(table->time_eat);
+		table->philo[i]->start = get_time(0);
+		pthread_mutex_unlock(&table->philo[i]->fork);
+		pthread_mutex_unlock(&table->philo[left]->fork);
+		printf("%ld %d is sleeping\n", get_time(0) - table->start, table->philo[i]->philo_num);
+		smart_sleep(table->time_sleep);
+		printf("%ld %d is thinking\n", get_time(0) - table->start, table->philo[i]->philo_num);
 	}
 	return NULL;
 }
 
-void	pthread_run(t_philo *philo)
+void	pthread_run(t_table *table)
 {
-	pthread_create(&philo->tid, NULL, philo_life, (void *)philo);
-	pthread_detach(philo->tid);
+	int i;
+
+	i = 0;
+	table->start = get_time(0);
+	while (i < table->all_philo)
+	{
+		table->idx = i;
+		table->philo[i]->start = get_time(0);
+		pthread_create(&table->philo[i]->tid, NULL, philo_life, (void *)table);
+		pthread_detach(table->philo[i]->tid);
+		usleep(100);
+		i++;
+	}
+
 }
 
 void	monitoring(t_table *table)
@@ -74,9 +109,9 @@ void	monitoring(t_table *table)
 		i = 0;
 		while (i < table->all_philo)
 		{
-			if (table->philo[i]->flag == 1)
+			if (get_time(0) - table->philo[i]->start > get_time(0) - table->time_die)
 			{
-				printf("%ld %d died\n", get_time(0) - table->philo[i]->start,
+				printf("%ld %d died\n", get_time(0) - table->start,
 					   table->philo[i]->philo_num);
 				exit(0);
 			}
@@ -95,8 +130,7 @@ int	main(int argc, char **argv)
 	{
 		table.all_philo = ft_atoi(argv[1]);
 		philo_init(&table, argv, argc);
-		while (i < table.all_philo)
-			pthread_run(table.philo[i++]);
+		pthread_run(&table);
 		monitoring(&table);
 	}
 	else
