@@ -10,6 +10,7 @@ typedef struct s_philo
 	int				philo_num;
 	int				flag;
 	int				time_to_die;
+	int				nte;
 	long			start;
 	pthread_mutex_t	fork;
 	pthread_t		tid;
