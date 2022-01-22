@@ -21,7 +21,6 @@ void	pthread_run(t_table *table)
 	while (i < table->all_philo)
 	{
 		table->idx = i;
-		table->philo[i]->start = get_time(0);
 		table->philo[i]->time_to_die = get_time(table->time_die);
 		if (pthread_create(&table->philo[i]->tid, NULL, philo_life, (void *) \
 		table) != 0)
@@ -45,7 +44,13 @@ int	main(int argc, char **argv)
 		table.all_philo = ft_atoi(argv[1]);
 		philo_init(&table, argv, argc);
 		pthread_run(&table);
-		monitoring(&table);
+		if (pthread_create(&table.tid, NULL, monitoring, (void *) &table) != 0)
+		{
+			printf("Tread create Error\n");
+			exit(-1);
+		}
+		else
+			pthread_join(table.tid, NULL);
 		clear(&table);
 	}
 	else

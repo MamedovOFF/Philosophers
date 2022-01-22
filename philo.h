@@ -21,10 +21,8 @@
 typedef struct s_philo
 {
 	int				philo_num;
-	int				flag;
 	int				time_to_die;
 	int				nte;
-	long			start;
 	pthread_mutex_t	fork;
 	pthread_t		tid;
 }	t_philo;
@@ -38,11 +36,14 @@ typedef struct s_table
 	long			start;
 	int				nte;
 	int				time_die;
+	pthread_t		tid;
+	pthread_mutex_t	time;
+	pthread_mutex_t	inc;
 	pthread_mutex_t	print;
 	t_philo			**philo;
 }	t_table;
 int		check_all_nte(t_table *table);
-void	monitoring(t_table *table);
+void	*monitoring(void *arg);
 long	get_time(long i);
 void	smart_sleep(int time);
 void	print_mutex(t_table *table, int i, char *str);

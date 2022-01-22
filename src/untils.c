@@ -69,5 +69,7 @@ void	clear(t_table *table)
 		i++;
 	}
 	pthread_mutex_destroy(&table->print);
+	pthread_mutex_destroy(&table->inc);
+	pthread_mutex_destroy(&table->time);
 	free(table->philo);
 }
