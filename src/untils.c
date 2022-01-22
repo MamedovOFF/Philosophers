@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   untils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spurple <spurple@student.42.fr>            +#+  +:+       +#+        */
+/*   By: spurple <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:58:31 by spurple           #+#    #+#             */
-/*   Updated: 2021/10/15 18:00:57 by spurple          ###   ########.fr       */
+/*   Created: 2022/01/21 19:44:40 by spurple           #+#    #+#             */
+/*   Updated: 2022/01/22 12:23:16 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -21,8 +21,8 @@ int	ft_atoi(const char *str)
 	i = 0;
 	pos = 0;
 	neg = 1;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' \
+	|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -36,4 +36,23 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (pos * neg);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_isdigit(int arg)
+{
+	if (arg >= '0' && arg <= '9')
+		return (1);
+	return (0);
 }

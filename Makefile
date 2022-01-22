@@ -1,12 +1,10 @@
 NAME			= philo
 
-SRCS			= main.c
+SRCS			= src/main.c src/monitoring.c src/time.c src/philo.c src/validator.c src/untils.c
 
 SRCS_B			= bonus.c
 
-HEADER			= philo.h
-
-LIBFT			= libft/libft.a
+HEADER			= ./includes/
 
 OBJ				= $(SRCS:.c=.o)
 
@@ -23,11 +21,10 @@ FLAGS			= -Wall -Wextra -Werror
 all:			$(NAME)
 
 $(NAME):		$(OBJ) $(HEADER)
-				@$(MAKE) -C ./libft
-				$(CC) $(FLAGS) $(OBJ) ${LIBFT} -pthread -o $(NAME)
+				$(CC) $(FLAGS) $(OBJ)  -pthread -o $(NAME)
 
 %.o:			%.c $(HEADER)
-				$(CC) -c $< -o $@
+				$(CC) -g $(FLAGS) -I${HEADER} -c $< -o $@
 
 bonus:
 				make OBJ="$(OBJ_B)" all
@@ -36,7 +33,6 @@ clean:
 				$(RM) $(OBJ) $(OBJ_B)
 
 fclean:			clean
-				@$(MAKE) fclean -C ./libft
 				$(RM) $(NAME)
 
 re:				fclean $(NAME)
