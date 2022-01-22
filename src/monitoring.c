@@ -6,11 +6,11 @@
 /*   By: spurple <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:44:23 by spurple           #+#    #+#             */
-/*   Updated: 2022/01/22 12:23:16 by                  ###   ########.fr       */
+/*   Updated: 2022/01/21 19:45:50 by spurple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	check_all_nte(t_table *table)
 {

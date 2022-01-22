@@ -6,11 +6,11 @@
 /*   By: spurple <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:44:45 by spurple           #+#    #+#             */
-/*   Updated: 2022/01/22 12:23:16 by                  ###   ########.fr       */
+/*   Updated: 2022/01/21 19:44:47 by spurple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 static int	check_atoi(char *str)
 {

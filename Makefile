@@ -4,7 +4,7 @@ SRCS			= src/main.c src/monitoring.c src/time.c src/philo.c src/validator.c src/
 
 SRCS_B			= bonus.c
 
-HEADER			= ./includes/
+HEADER			= philo.h
 
 OBJ				= $(SRCS:.c=.o)
 
@@ -21,10 +21,10 @@ FLAGS			= -Wall -Wextra -Werror
 all:			$(NAME)
 
 $(NAME):		$(OBJ) $(HEADER)
-				$(CC) $(FLAGS) $(OBJ)  -pthread -o $(NAME)
+				$(CC) $(FLAGS) $(OBJ) -pthread -o $(NAME)
 
 %.o:			%.c $(HEADER)
-				$(CC) -g $(FLAGS) -I${HEADER} -c $< -o $@
+				$(CC) -c $< -o $@
 
 bonus:
 				make OBJ="$(OBJ_B)" all

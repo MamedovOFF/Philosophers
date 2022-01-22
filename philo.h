@@ -52,5 +52,6 @@ void	philo_init(t_table *table, char **argv, int flag);
 int		ft_atoi(const char *str);
 size_t	ft_strlen(const char *str);
 int		ft_isdigit(int arg);
+void	clear(t_table *table);
 
 #endif

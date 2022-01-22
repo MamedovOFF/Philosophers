@@ -6,11 +6,11 @@
 /*   By: spurple <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:44:16 by spurple           #+#    #+#             */
-/*   Updated: 2022/01/22 12:23:16 by                  ###   ########.fr       */
+/*   Updated: 2022/01/21 19:44:18 by spurple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void	pthread_run(t_table *table)
 {
@@ -46,6 +46,7 @@ int	main(int argc, char **argv)
 		philo_init(&table, argv, argc);
 		pthread_run(&table);
 		monitoring(&table);
+		clear(&table);
 	}
 	else
 		printf("Error\n");

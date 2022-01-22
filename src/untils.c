@@ -6,11 +6,11 @@
 /*   By: spurple <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:44:40 by spurple           #+#    #+#             */
-/*   Updated: 2022/01/22 12:23:16 by                  ###   ########.fr       */
+/*   Updated: 2022/01/21 19:46:27 by spurple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -55,4 +55,19 @@ int	ft_isdigit(int arg)
 	if (arg >= '0' && arg <= '9')
 		return (1);
 	return (0);
+}
+
+void	clear(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->all_philo)
+	{
+		pthread_mutex_destroy(&table->philo[i]->fork);
+		free(table->philo[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&table->print);
+	free(table->philo);
 }

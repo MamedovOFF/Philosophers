@@ -6,11 +6,11 @@
 /*   By: spurple <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:44:29 by spurple           #+#    #+#             */
-/*   Updated: 2022/01/22 12:23:16 by                  ###   ########.fr       */
+/*   Updated: 2022/01/21 19:44:31 by spurple          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void	print_mutex(t_table *table, int i, char *str)
 {
@@ -42,8 +42,8 @@ void	*philo_life(void *arg)
 	i = table->idx;
 	while (1)
 	{
-		if (table->philo[i]->philo_num % 2)
-			usleep(1500);
+		if (table->philo[i]->philo_num % 2 && table->all_philo > 3)
+			usleep(1000);
 		if (i == 0)
 			left = table->all_philo - 1;
 		else
